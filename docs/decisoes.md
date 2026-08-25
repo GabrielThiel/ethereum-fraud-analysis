@@ -84,3 +84,43 @@ e a possibilidade de dependência temporal ou vazamento de informação.
 
 Essa investigação será considerada na definição da estratégia de
 divisão dos dados para treinamento e avaliação dos modelos.
+
+## 04 - Análise do poder discriminativo individual das features
+
+**Dataset:** ETFD
+
+**Método:** ROC-AUC individual por feature.
+
+**Principais resultados:**
+
+- `blockNumber`: AUC ajustada = 0,967519
+- `confirmations`: AUC = 0,966261
+- `total_tx_sent_malicious`: AUC = 0,896753
+- `total_tx_sent_malicious_unique`: AUC = 0,892559
+- `total_tx_sent`: AUC ajustada = 0,758434
+- `time_diff_first_last_received`: AUC ajustada = 0,736448
+- `total_received`: AUC ajustada = 0,712851
+
+**Observação:**
+
+`blockNumber` e `confirmations` apresentaram capacidade discriminativa
+individual muito elevada. Esse resultado é consistente com a forte
+dependência temporal observada anteriormente.
+
+As features relacionadas a transações maliciosas também apresentaram
+elevado poder discriminativo individual. Como essas características
+possuem relação com a informação utilizada na construção da variável
+`Fraud`, elas serão investigadas quanto à possibilidade de vazamento de
+informação.
+
+**Decisão:**
+
+Nenhuma feature foi removida nesta etapa.
+
+**Justificativa:**
+
+A análise de AUC foi utilizada como ferramenta exploratória para
+identificar características potencialmente relevantes ou problemáticas.
+A decisão definitiva sobre seleção ou exclusão será realizada após
+comparação de diferentes conjuntos de features e definição adequada da
+estratégia de treinamento e avaliação.
