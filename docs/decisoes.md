@@ -30,6 +30,40 @@ A remoção elimina redundâncias sem introduzir conflitos de
 classificação e mantém a distribuição das classes aproximadamente
 equilibrada.
 
+## 05 - Avaliação da divisão temporal
+
+**Resultado:**
+
+A divisão temporal de 70% para treinamento e 30% para teste apresentou
+forte mudança na distribuição da variável `Fraud`.
+
+O conjunto de treinamento apresentou 70,56% de registros fraudulentos,
+enquanto o conjunto de teste apresentou apenas 0,18%.
+
+**Interpretação:**
+
+O resultado evidencia uma forte mudança de distribuição ao longo do
+`blockNumber`. Essa característica é consistente com a elevada capacidade
+discriminativa observada anteriormente para `blockNumber`.
+
+**Decisão:**
+
+A divisão temporal não será utilizada isoladamente como estratégia
+principal de comparação entre os modelos.
+
+Será utilizada como experimento complementar de generalização temporal.
+
+Para a comparação principal dos algoritmos, será utilizada uma divisão
+estratificada, preservando a proporção das classes entre os conjuntos de
+treinamento e teste.
+
+**Justificativa:**
+
+A divisão temporal de 70/30 produz um conjunto de teste com quantidade
+muito reduzida de exemplos fraudulentos, dificultando uma avaliação
+estatisticamente representativa da capacidade de classificação da classe
+minoritaria nesse cenário específico.
+
 ## 02 - Análise de correlação
 
 **Dataset:** ETFD
