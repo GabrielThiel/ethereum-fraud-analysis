@@ -29,3 +29,29 @@ de cada registro.
 A remoção elimina redundâncias sem introduzir conflitos de
 classificação e mantém a distribuição das classes aproximadamente
 equilibrada.
+
+## 02 - Análise de correlação
+
+**Dataset:** ETFD
+
+**Problema/observação:**  
+A análise de correlação identificou relações muito fortes entre algumas
+features.
+
+**Principais resultados:**
+- `blockNumber` × `confirmations`: aproximadamente -0,999992
+- `mean_value_received` × `variance_value_received`: aproximadamente 0,976
+- `variance_value_received` × `total_received`: aproximadamente 0,912
+- `mean_value_received` × `total_received`: aproximadamente 0,896
+
+Também foram observadas correlações elevadas entre algumas features e a
+variável `Fraud`, especialmente `blockNumber` e `confirmations`.
+
+**Decisão:**  
+Nenhuma feature foi removida nesta etapa.
+
+**Justificativa:**  
+Correlação elevada não é suficiente, isoladamente, para determinar que
+uma variável deve ser excluída. As variáveis serão analisadas considerando
+seu significado, redundância e possível ocorrência de data leakage antes
+da seleção definitiva de features.
