@@ -1,0 +1,38 @@
+{
+  "project": "ethereum-fraud-analysis",
+  "description": "Fontes dos datasets utilizados na análise de fraude, anomalias e phishing na rede Ethereum.",
+  "datasets": [
+    {
+      "name": "Ethereum Transaction Fraud Detection (ETFD)",
+      "source": "Kaggle",
+      "url": "https://www.kaggle.com/datasets/hunedmaterwala/ethereum-transaction-fraud-detection-etfd-data",
+      "unit_of_analysis": "transacao",
+      "classification": "fraude / nao fraude",
+      "status": "em avaliacao"
+    },
+    {
+      "name": "Ethereum Fraud Detection Dataset",
+      "source": "Kaggle",
+      "url": "https://www.kaggle.com/datasets/vagifa/ethereum-frauddetection-dataset",
+      "unit_of_analysis": "a confirmar",
+      "classification": "fraude / nao fraude",
+      "status": "em avaliacao"
+    },
+    {
+      "name": "Labeled Transactions-based Dataset of Ethereum Network (BLTE)",
+      "source": "GitHub",
+      "url": "https://github.com/salam-ammari/Labeled-Transactions-based-Dataset-of-Ethereum-Network",
+      "unit_of_analysis": "transacao",
+      "classification": "a confirmar",
+      "status": "em avaliacao"
+    },
+    {
+      "name": "Ethereum Phishing Transaction Network",
+      "source": "Kaggle / XBlock",
+      "url": "https://www.kaggle.com/datasets/xblock/ethereum-phishing-transaction-network",
+      "unit_of_analysis": "rede de transacoes / grafo",
+      "classification": "phishing / nao phishing",
+      "status": "em avaliacao"
+    }
+  ]
+}
