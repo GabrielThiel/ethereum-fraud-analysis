@@ -158,3 +158,156 @@ A divisão temporal de 70/30 produz um conjunto de teste com quantidade
 muito reduzida de exemplos fraudulentos, dificultando uma avaliação
 estatisticamente representativa da capacidade de classificação da classe
 minoritaria nesse cenário específico.
+
+## 06 - Feature Engineering das variáveis temporais
+
+Foram analisadas as variáveis temporais `Month`, `Day` e `Hour`.
+
+As variáveis `Month` e `Hour` foram transformadas utilizando representação
+cíclica por seno e cosseno, conforme abordagem de Feature Engineering para
+variáveis periódicas.
+
+Foram criadas as seguintes features:
+
+- `Month_sin`;
+- `Month_cos`;
+- `Hour_sin`;
+- `Hour_cos`.
+
+A variável `Day` foi mantida originalmente, pois a quantidade de dias varia
+entre os meses e não foi assumido um ciclo fixo de 31 dias.
+
+Após a transformação, o Cenário A passou de 14 para 16 features.
+
+---
+
+## 07 - Feature Selection com Mutual Information
+
+Foi utilizado o método `SelectKBest` com `mutual_info_classif` para analisar
+a relevância individual das features em relação à variável-alvo `Fraud`.
+
+A seleção foi ajustada exclusivamente sobre os dados de treinamento.
+
+Inicialmente foi realizado um teste exploratório com `k=8`. Em seguida,
+foram avaliados os valores:
+
+- k=4;
+- k=6;
+- k=8;
+- k=10;
+- k=12;
+- k=14;
+- k=16.
+
+A escolha foi realizada por validação cruzada estratificada com 5 folds,
+utilizando o PR-AUC médio como critério.
+
+O maior PR-AUC médio foi obtido com `k=12`, aproximadamente 0,9837.
+
+Com `k=12`, foram selecionadas:
+
+- `confirmations`;
+- `blockNumber`;
+- `total_tx_sent_malicious`;
+- `total_tx_sent_malicious_unique`;
+- `mean_value_received`;
+- `total_received`;
+- `total_tx_sent`;
+- `time_diff_first_last_received`;
+- `variance_value_received`;
+- `total_tx_sent_unique`;
+- `Month_sin`;
+- `Month_cos`.
+
+Foram descartadas:
+
+- `total_tx_received_malicious_unique`;
+- `Hour_sin`;
+- `Hour_cos`;
+- `Day`.
+
+A Regressão Logística com `k=12` apresentou PR-AUC de aproximadamente
+0,9854, resultado próximo ao PR-AUC de aproximadamente 0,9864 obtido
+com todas as features.
+
+A redução do conjunto de atributos provocou, portanto, pequena perda de
+desempenho preditivo.
+
+---
+
+## 08 - Comparação entre Regressão Logística e XGBoost
+
+Foram comparados Regressão Logística e XGBoost utilizando o mesmo split
+estratificado e quatro conjuntos de features.
+
+### Cenário A - Todas as features
+
+Regressão Logística:
+- Precision: 0,9686;
+- Recall: 0,9632;
+- F1: 0,9659;
+- PR-AUC: 0,9864.
+
+XGBoost:
+- Precision: 0,9966;
+- Recall: 0,9989;
+- F1: 0,9978;
+- PR-AUC: 0,9999.
+
+### Cenário B - Sem `blockNumber` e `confirmations`
+
+Regressão Logística:
+- Precision: 0,7699;
+- Recall: 0,8513;
+- F1: 0,8086;
+- PR-AUC: 0,8921.
+
+XGBoost:
+- Precision: 0,9852;
+- Recall: 0,9909;
+- F1: 0,9880;
+- PR-AUC: 0,9991.
+
+### Cenário C - Sem features relacionadas a transações maliciosas
+
+Regressão Logística:
+- Precision: 0,9574;
+- Recall: 0,9334;
+- F1: 0,9452;
+- PR-AUC: 0,9844.
+
+XGBoost:
+- Precision: 0,9937;
+- Recall: 0,9972;
+- F1: 0,9955;
+- PR-AUC: 0,9993.
+
+### Cenário D - Sem `blockNumber`, `confirmations` e features maliciosas
+
+Regressão Logística:
+- Precision: 0,6944;
+- Recall: 0,8215;
+- F1: 0,7527;
+- PR-AUC: 0,8065.
+
+XGBoost:
+- Precision: 0,8862;
+- Recall: 0,9564;
+- F1: 0,9199;
+- PR-AUC: 0,9731.
+
+Nos experimentos realizados, o XGBoost apresentou desempenho superior à
+Regressão Logística em todos os conjuntos de features avaliados.
+
+Mesmo no cenário mais restritivo, no qual foram removidos `blockNumber`,
+`confirmations` e as features relacionadas a transações maliciosas, o
+XGBoost manteve PR-AUC de aproximadamente 0,9731.
+
+Os resultados elevados devem, entretanto, ser interpretados considerando
+que esta comparação utiliza uma divisão aleatória estratificada dos dados.
+A análise temporal realizada anteriormente demonstrou uma forte mudança
+na distribuição da variável `Fraud` ao longo do `blockNumber`.
+
+Portanto, esses resultados caracterizam o desempenho dentro da distribuição
+do dataset utilizado e ainda não comprovam a capacidade de generalização
+para períodos futuros.
