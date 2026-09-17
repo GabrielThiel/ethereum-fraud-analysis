@@ -311,3 +311,50 @@ na distribuição da variável `Fraud` ao longo do `blockNumber`.
 Portanto, esses resultados caracterizam o desempenho dentro da distribuição
 do dataset utilizado e ainda não comprovam a capacidade de generalização
 para períodos futuros.
+
+## 09 - Avaliação da Árvore de Decisão
+
+A Árvore de Decisão foi utilizada como terceiro modelo supervisionado,
+mantendo o mesmo split estratificado e os quatro conjuntos de features
+utilizados nos experimentos anteriores.
+
+### Cenário A - Todas as features
+
+- Precision: 0,9960;
+- Recall: 0,9978;
+- F1: 0,9969;
+- PR-AUC: 0,9975.
+
+### Cenário B - Sem `blockNumber` e `confirmations`
+
+- Precision: 0,9850;
+- Recall: 0,9876;
+- F1: 0,9863;
+- PR-AUC: 0,9894.
+
+### Cenário C - Sem features relacionadas a transações maliciosas
+
+- Precision: 0,9923;
+- Recall: 0,9950;
+- F1: 0,9936;
+- PR-AUC: 0,9949.
+
+### Cenário D - Sem `blockNumber`, `confirmations` e features maliciosas
+
+- Precision: 0,9207;
+- Recall: 0,9202;
+- F1: 0,9204;
+- PR-AUC: 0,9476.
+
+A Árvore de Decisão apresentou desempenho elevado nos quatro cenários.
+
+Assim como observado no XGBoost, o modelo manteve desempenho elevado
+mesmo após a remoção de `blockNumber` e `confirmations`.
+
+No cenário mais restritivo, houve redução mais expressiva do PR-AUC,
+indicando que a remoção simultânea dos dois grupos de features reduz
+a capacidade de separação das classes.
+
+Os resultados ainda correspondem a um modelo sem ajuste de
+hiperparâmetros e serão comparados com os demais algoritmos antes da
+definição dos modelos finais.
