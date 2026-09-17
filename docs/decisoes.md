@@ -358,3 +358,37 @@ a capacidade de separação das classes.
 Os resultados ainda correspondem a um modelo sem ajuste de
 hiperparâmetros e serão comparados com os demais algoritmos antes da
 definição dos modelos finais.
+
+## 10 - Comparação preliminar dos modelos
+
+Foram comparados três modelos supervisionados:
+
+- Regressão Logística;
+- XGBoost;
+- Árvore de Decisão.
+
+Cada algoritmo foi avaliado utilizando os mesmos quatro cenários de
+features e o mesmo split estratificado de treinamento e teste.
+
+Considerando o PR-AUC como uma das métricas principais, o XGBoost
+apresentou os maiores valores nos quatro cenários avaliados.
+
+PR-AUC por cenário:
+
+| Modelo | A | B | C | D |
+|---|---:|---:|---:|---:|
+| Regressão Logística | 0.9864 | 0.8921 | 0.9844 | 0.8065 |
+| XGBoost | 0.9999 | 0.9991 | 0.9993 | 0.9731 |
+| Árvore de Decisão | 0.9975 | 0.9894 | 0.9949 | 0.9476 |
+
+Mesmo no cenário mais restritivo, sem `blockNumber`, `confirmations`
+e as features relacionadas a transações maliciosas, XGBoost e Árvore
+de Decisão mantiveram elevado desempenho.
+
+Os resultados ainda correspondem a uma divisão aleatória estratificada.
+Portanto, não são considerados evidência suficiente de generalização
+para períodos futuros, principalmente devido à forte mudança temporal
+identificada anteriormente no dataset.
+
+Antes da definição do modelo final, também serão consideradas avaliações
+temporais e medidas de custo computacional.
