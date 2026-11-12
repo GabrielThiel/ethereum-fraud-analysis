@@ -392,3 +392,37 @@ identificada anteriormente no dataset.
 
 Antes da definição do modelo final, também serão consideradas avaliações
 temporais e medidas de custo computacional.
+
+
+## 11 - Investigação inicial do dataset Vagifa
+
+O dataset Vagifa foi selecionado como segunda fonte de dados
+para investigação no TCC.
+
+Na análise inicial, foram identificadas 51 colunas,
+incluindo a variável-alvo `FLAG`, o identificador
+`Address` e as colunas `Unnamed: 0` e `Index`.
+
+A coluna `Unnamed: 0` apresentou forte associação
+com a variável-alvo:
+
+- FLAG = 0: índices entre 0 e 7661;
+- FLAG = 1: índices entre 7662 e 9840.
+
+Essa organização representa risco de target leakage,
+pois a posição dos registros pode permitir reproduzir
+os rótulos sem analisar o comportamento transacional.
+
+A coluna `Index` também apresentou associação com
+a classe, exigindo investigação adicional.
+
+Decisão preliminar:
+- Excluir `Unnamed: 0` das features preditivas;
+- Excluir `Index` das features preditivas;
+- Manter `Address` apenas para verificações de
+  identidade e integridade, sem utilizá-lo como
+  entrada direta dos modelos.
+
+A decisão será confirmada após a conclusão da
+auditoria dos identificadores.
+
