@@ -519,3 +519,37 @@ A comparação dos atributos demonstrou que:
 
 A preparação não elimina a necessidade de investigar outras possíveis relações entre os atributos e o processo de rotulação.
 
+## 15 - Preparação e auditoria numérica do dataset Vagifa
+
+Após a investigação dos identificadores, endereços duplicados e valores ausentes, foi criada uma versão preparada do dataset Vagifa.
+
+**Características da base preparada:**
+
+- Dataset original: 9.841 registros e 51 colunas.
+- Dataset preparado: 9.816 registros e 47 colunas.
+- Primeiro cenário sem ERC-20: 9.816 registros e 22 features de entrada.
+- Classe `FLAG = 0`: 7.637 registros (77,8%).
+- Classe `FLAG = 1`: 2.179 registros (22,2%).
+- Valores ausentes no cenário sem ERC-20: 0.
+- Endereços duplicados após a preparação: 0.
+
+Foram removidos da entrada dos modelos os índices artificiais e os identificadores de contas. Os atributos ERC-20 foram excluídos do primeiro cenário devido aos padrões de ausência associados à classe, mas permanecem disponíveis na base original para experimentos posteriores.
+
+### Auditoria das features numéricas
+
+Foram analisadas as 22 features numéricas, considerando tipos, valores distintos, mínimos, máximos, valores negativos, infinitos e frequência de zeros por classe.
+
+Não foram identificados valores infinitos ou ausentes nas entradas do primeiro cenário.
+
+Foram identificados 976 valores negativos, todos associados à variável `total ether balance`.
+
+A análise indicou que essa variável corresponde aproximadamente à diferença entre o total de Ether recebido e enviado.
+
+Os saldos negativos ocorreram em 10,84% dos registros não fraudulentos e 6,79% dos registros fraudulentos.
+
+Apenas dois registros apresentaram diferença superior a 0,01 ETH entre o saldo registrado e o saldo calculado. Essas divergências permanecem em investigação.
+
+**Decisão:** preservar os valores negativos e não realizar exclusões automáticas, pois o atributo parece representar um saldo líquido calculado. Sua definição precisa será considerada na documentação das features.
+
+Também foram observadas diferenças relevantes na frequência de valores zero entre as classes, que serão examinadas posteriormente para investigar associações com o rótulo e possíveis atalhos de classificação.
+
