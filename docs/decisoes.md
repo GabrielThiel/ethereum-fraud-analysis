@@ -466,3 +466,34 @@ Esse registro será importante para justificar à banca que estamos auditando a 
 A decisão será confirmada após a conclusão da
 auditoria dos identificadores.
 
+
+## 13 - Padrões de ausência de dados ERC-20 no Vagifa
+
+A investigação dos valores ausentes identificou que os
+25 atributos ERC-20 estão simultaneamente ausentes
+em 829 registros, todos classificados como fraudulentos.
+
+Outros 1.891 registros não fraudulentos apresentam
+ausência de um ou dois atributos relacionados aos
+nomes dos tokens ERC-20.
+
+Os 7.121 registros restantes não apresentam valores ausentes.
+
+Esses padrões demonstram forte associação entre a
+ausência de informações ERC-20 e a variável FLAG.
+
+Entretanto, ainda não foi comprovado que essa
+associação representa target leakage.
+
+Decisões:
+- Preservar o dataset original.
+- Não substituir automaticamente valores ausentes por zero.
+- Não excluir os registros fraudulentos com dados ERC-20 ausentes.
+- Investigar a origem dos valores ausentes.
+- Preparar um cenário experimental sem atributos ERC-20.
+- Comparar posteriormente com um cenário que utilize
+  os atributos ERC-20 após tratamento apropriado.
+```
+
+**Execute agora a investigação dos endereços repetidos e me envie o resultado.** Depois vamos decidir o tratamento das duplicatas e preparar o primeiro DataFrame limpo do Vagifa, preservando todas essas descobertas para a versão revisada do TCC.
+
