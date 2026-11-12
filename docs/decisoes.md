@@ -697,3 +697,38 @@ A Average Precision permaneceu próxima dos valores encontrados antes do balance
 
 **Decisão:** manter ambas as configurações como experimentos preliminares e investigar o comportamento de um modelo não linear, preservando o conjunto de teste para avaliação final.
 
+## 20 - Avaliação inicial do XGBoost no dataset Vagifa
+
+Foi realizada a comparação do algoritmo XGBoost nos quatro cenários de features, utilizando 5.889 registros para treinamento e 1.963 para validação.
+
+O conjunto de teste permaneceu reservado.
+
+| Cenário | Features | Precision | Recall | F1 | AP |
+|---|---:|---:|---:|---:|---:|
+| A - Completo | 22 | 0,9127 | 0,7913 | 0,8477 | 0,9430 |
+| B - Sem saldo | 21 | 0,9122 | 0,7867 | 0,8448 | 0,9396 |
+| C - Sem contratos | 18 | 0,9110 | 0,7982 | 0,8509 | 0,9430 |
+| D - Atividade e relacionamentos | 6 | 0,9207 | 0,6124 | 0,7355 | 0,8458 |
+
+O XGBoost apresentou desempenho superior à Regressão Logística nas configurações avaliadas.
+
+O Cenário C manteve desempenho praticamente equivalente ao cenário completo, apesar da remoção das quatro features extremamente esparsas relacionadas a valores enviados para contratos.
+
+No Cenário C, foram identificadas corretamente 348 das 436 contas fraudulentas presentes na validação, com 34 falsos positivos e 88 falsos negativos.
+
+O Cenário D, contendo apenas seis características de atividade e relacionamentos, apresentou menor Recall e Average Precision, indicando que os atributos de valores transacionais contribuem para o desempenho do modelo.
+
+### Interpretação e limitações
+
+Os resultados são preliminares e correspondem ao conjunto de validação de uma divisão aleatória estratificada.
+
+As métricas elevadas não constituem evidência suficiente de generalização para contas Ethereum futuras ou bases independentes.
+
+**Decisões:**
+
+- Manter o XGBoost como candidato para avaliação posterior.
+- Priorizar o Cenário C como configuração promissora, sem defini-lo ainda como modelo final.
+- Investigar possíveis perfis transacionais idênticos entre treinamento e validação.
+- Continuar a auditoria da origem dos rótulos e das features.
+- Preservar o conjunto de teste para a avaliação final.
+
