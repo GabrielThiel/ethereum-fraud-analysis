@@ -567,5 +567,27 @@ Com a fórmula revisada, a maior diferença absoluta observada foi de aproximada
 
 Entretanto, 129 registros ainda apresentaram diferença superior a 0,000001 ETH, exigindo investigação complementar da precisão dos valores.
 
+### Conclusão da auditoria do saldo Ethereum
+
+A análise confirmou que `total ether balance` apresenta uma relação matemática aproximada com três atributos:
+
+`total ether balance ≈ total ether received - total Ether sent - total ether sent contracts`
+
+Após considerar os envios para contratos, a maior diferença absoluta encontrada foi de aproximadamente 0,001734 ETH.
+
+Dos 9.816 registros analisados:
+
+- 129 apresentaram diferença superior a 0,000001 ETH.
+- 37 apresentaram diferença superior a 0,00001 ETH.
+- 8 apresentaram diferença superior a 0,0001 ETH.
+- 2 apresentaram diferença superior a 0,001 ETH.
+- Nenhum apresentou diferença superior a 0,01 ETH.
+
+A diferença mediana foi praticamente zero.
+
+**Decisão metodológica:** preservar os registros e considerar `total ether balance` uma variável aproximadamente derivada de outros atributos. A possível redundância será examinada nos experimentos de seleção e remoção de features.
+
+Não foram identificadas evidências suficientes para determinar a causa exata das pequenas diferenças residuais.
+
 **Decisão:** manter os registros e preservar os valores originais. A variável será tratada como aproximadamente derivada de outros atributos, considerando essa relação na análise de redundância e seleção de features.
 
