@@ -423,6 +423,46 @@ Decisão preliminar:
   identidade e integridade, sem utilizá-lo como
   entrada direta dos modelos.
 
+  
+## 12 - Associação entre valores ausentes e o rótulo no Vagifa
+
+A auditoria identificou 25 colunas com valores ausentes e
+2.720 registros contendo pelo menos um valor nulo.
+
+A análise por quantidade de valores ausentes revelou:
+
+| Nulos por registro | FLAG 0 | FLAG 1 |
+|---|---:|---:|
+| 0 | 5771 | 1350 |
+| 1 | 1872 | 0 |
+| 2 | 19 | 0 |
+| 25 | 0 | 829 |
+
+Todos os 829 registros com 25 valores ausentes pertencem à
+classe fraudulenta. Já todos os registros com um ou dois
+valores ausentes pertencem à classe não fraudulenta.
+
+Essa associação indica que o padrão de ausência de
+informações pode funcionar como um forte indicador da
+variável-alvo.
+
+Ainda não foi estabelecido se esse comportamento resulta
+de características legítimas das contas ou do processo de
+construção e rotulação do dataset.
+
+Decisão:
+- Preservar o dataset original.
+- Não realizar imputação ou remoção automática dos nulos.
+- Investigar quais atributos estão ausentes em cada grupo.
+- Avaliar possíveis efeitos da ausência de dados na modelagem.
+- Não interpretar métricas elevadas como prova de detecção
+  real de fraude sem investigar esses padrões.
+```
+
+Esse registro será importante para justificar à banca que estamos auditando a qualidade e a origem das features antes de treinar os modelos no segundo dataset.
+
+**Execute a célula de investigação e me envie o resultado.** Depois vamos definir o tratamento dos nulos, resolver os endereços duplicados e preparar a versão limpa do Vagifa.
+
 A decisão será confirmada após a conclusão da
 auditoria dos identificadores.
 
