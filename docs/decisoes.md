@@ -591,3 +591,30 @@ Não foram identificadas evidências suficientes para determinar a causa exata d
 
 **Decisão:** manter os registros e preservar os valores originais. A variável será tratada como aproximadamente derivada de outros atributos, considerando essa relação na análise de redundância e seleção de features.
 
+## 16 - Estratégia de particionamento do Vagifa
+
+Após a preparação do segundo dataset, foram obtidos 9.816 registros únicos de contas Ethereum, com 22 features numéricas no cenário inicial sem ERC-20.
+
+Foi realizado um particionamento aleatório estratificado, utilizando `random_state=42`, com a seguinte distribuição:
+
+| Conjunto | Registros | FLAG 0 | FLAG 1 |
+|---|---:|---:|---:|
+| Treinamento | 5.889 | 4.582 | 1.307 |
+| Validação | 1.963 | 1.527 | 436 |
+| Teste | 1.964 | 1.528 | 436 |
+
+A proporção de contas rotuladas como fraudulentas permaneceu próxima de 22,2% nos três conjuntos.
+
+**Decisões metodológicas:**
+
+- Utilizar o treinamento para ajustar transformações e modelos.
+- Utilizar a validação para comparar cenários, configurações e thresholds.
+- Preservar o teste para a avaliação final.
+- Não utilizar os índices artificiais nem o endereço Ethereum como features preditivas.
+- Investigar o efeito da remoção de atributos derivados, extremamente esparsos e de grupos específicos de características.
+- Reconhecer que o particionamento aleatório não demonstra generalização temporal ou entre datasets.
+
+A comparação inicial será realizada com Regressão Logística e XGBoost, priorizando Precision, Recall, F1 e métricas de curva Precision-Recall.
+
+A ausência de uma referência cronológica adequada no Vagifa será documentada como limitação experimental.
+
