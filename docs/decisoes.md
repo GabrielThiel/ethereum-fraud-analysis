@@ -497,3 +497,25 @@ Decisões:
 
 **Execute agora a investigação dos endereços repetidos e me envie o resultado.** Depois vamos decidir o tratamento das duplicatas e preparar o primeiro DataFrame limpo do Vagifa, preservando todas essas descobertas para a versão revisada do TCC.
 
+## 14 - Auditoria dos endereços duplicados no Vagifa
+
+Foram identificados 25 endereços Ethereum repetidos, correspondentes a 50 registros.
+
+A comparação dos atributos demonstrou que:
+
+- Nenhum endereço apresentou diferenças nas features numéricas.
+- Sete endereços apresentaram diferenças nos nomes de tokens ERC-20.
+- Dezoito endereços apresentaram atributos idênticos, desconsiderando os índices artificiais.
+- Nenhum endereço apresentou conflito na variável-alvo `FLAG`.
+
+**Decisões metodológicas:**
+
+1. Preservar o dataset original para fins de auditoria e rastreabilidade.
+2. Normalizar os endereços Ethereum antes de identificar duplicações.
+3. Manter apenas um registro por endereço na versão de modelagem, considerando a equivalência dos atributos numéricos e dos rótulos.
+4. Excluir os identificadores artificiais `Unnamed: 0` e `Index`, devido ao risco de vazamento de informação.
+5. Excluir inicialmente os nomes categóricos de tokens da versão de modelagem, mantendo-os disponíveis no dataset original.
+6. Criar um cenário sem atributos ERC-20 para investigar o efeito dos padrões de valores ausentes sobre o desempenho preditivo.
+
+A preparação não elimina a necessidade de investigar outras possíveis relações entre os atributos e o processo de rotulação.
+
