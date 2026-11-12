@@ -553,3 +553,19 @@ Apenas dois registros apresentaram diferença superior a 0,01 ETH entre o saldo 
 
 Também foram observadas diferenças relevantes na frequência de valores zero entre as classes, que serão examinadas posteriormente para investigar associações com o rótulo e possíveis atalhos de classificação.
 
+### Revisão da fórmula de `total ether balance`
+
+A investigação identificou que a variável `total ether balance` apresenta uma relação matemática com os valores de Ether recebidos, enviados e enviados para contratos.
+
+Foi avaliada a seguinte expressão:
+
+`total ether balance = total ether received - total Ether sent - total ether sent contracts`
+
+A inclusão dos envios para contratos explicou as duas maiores divergências identificadas anteriormente, correspondentes aos registros 682 e 6752.
+
+Com a fórmula revisada, a maior diferença absoluta observada foi de aproximadamente 0,001074 ETH, e nenhum registro apresentou diferença superior a 0,01 ETH.
+
+Entretanto, 129 registros ainda apresentaram diferença superior a 0,000001 ETH, exigindo investigação complementar da precisão dos valores.
+
+**Decisão:** manter os registros e preservar os valores originais. A variável será tratada como aproximadamente derivada de outros atributos, considerando essa relação na análise de redundância e seleção de features.
+
