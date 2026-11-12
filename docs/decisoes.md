@@ -647,6 +647,23 @@ Decisão: investigar as distribuições das probabilidades,
 os thresholds e o efeito do pré-processamento antes de
 avançar para outros algoritmos.
 
+## 18 - Investigação dos thresholds da Regressão Logística
+
+A avaliação inicial da Regressão Logística no Vagifa apresentou Recall igual a zero com o threshold padrão de 0,5 nos quatro cenários.
+
+A análise das probabilidades revelou que a maioria dos registros, inclusive fraudulentos, recebeu probabilidades inferiores a 0,5.
+
+Foram avaliados thresholds de 0,05 a 0,50 exclusivamente no conjunto de validação.
+
+Entre os thresholds avaliados, o maior F1 foi aproximadamente 0,5131, obtido no Cenário B com threshold de 0,30.
+
+Nesse cenário, o Recall alcançou aproximadamente 0,8096, enquanto a Precision foi de 0,3755.
+
+Os resultados mostram que a alteração do threshold melhora a identificação da classe fraudulenta, mas ainda produz quantidade elevada de falsos positivos.
+
+**Decisão:** investigar o uso de pesos de classe durante o treinamento antes de definir um threshold ou selecionar a configuração final.
+
+O conjunto de teste permanece reservado para a avaliação final.
 O conjunto de teste permanece reservado.
 
 
