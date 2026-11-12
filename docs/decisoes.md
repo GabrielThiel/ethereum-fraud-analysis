@@ -666,4 +666,34 @@ Os resultados mostram que a alteração do threshold melhora a identificação d
 O conjunto de teste permanece reservado para a avaliação final.
 O conjunto de teste permanece reservado.
 
+## 19 - Regressão Logística com pesos de classe no Vagifa
+
+Foi avaliada uma segunda configuração da Regressão Logística utilizando `class_weight="balanced"`, mantendo os mesmos quatro cenários de features e os conjuntos de treinamento e validação.
+
+O objetivo foi investigar o efeito do desbalanceamento, uma vez que aproximadamente 22,2% dos registros pertencem à classe fraudulenta.
+
+### Resultados na validação
+
+| Cenário | Precision | Recall | F1 | AP |
+|---|---:|---:|---:|---:|
+| A - Completo | 0,3560 | 0,8509 | 0,5020 | 0,4849 |
+| B - Sem saldo | 0,3557 | 0,8509 | 0,5017 | 0,4865 |
+| C - Sem contratos | 0,3560 | 0,8509 | 0,5020 | 0,4891 |
+| D - Atividade e relacionamentos | 0,2852 | 0,9427 | 0,4379 | 0,6094 |
+
+O uso de pesos de classe elevou o Recall e o F1 no threshold padrão de 0,5 em comparação com os modelos não ponderados.
+
+Entretanto, os modelos continuaram apresentando baixa Precision, especialmente no Cenário D, que produziu 1.030 falsos positivos.
+
+A Average Precision permaneceu próxima dos valores encontrados antes do balanceamento. No Cenário D, passou de aproximadamente 0,6099 para 0,6094.
+
+### Conclusões
+
+- O balanceamento por pesos favoreceu a identificação da classe minoritária no threshold padrão.
+- O aumento do Recall ocorreu acompanhado de muitos falsos positivos.
+- Não foi identificada melhoria relevante na Average Precision.
+- O Cenário D apresentou a maior AP, apesar de utilizar somente seis atributos.
+- A acurácia isolada não é adequada para avaliar a capacidade de identificação das fraudes.
+
+**Decisão:** manter ambas as configurações como experimentos preliminares e investigar o comportamento de um modelo não linear, preservando o conjunto de teste para avaliação final.
 
