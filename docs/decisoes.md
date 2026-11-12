@@ -618,3 +618,35 @@ A comparação inicial será realizada com Regressão Logística e XGBoost, prio
 
 A ausência de uma referência cronológica adequada no Vagifa será documentada como limitação experimental.
 
+
+## 17 - Avaliação inicial da Regressão Logística no Vagifa
+
+Foram avaliados quatro cenários de features utilizando
+Regressão Logística com StandardScaler.
+
+Os experimentos utilizaram 5.889 registros de treinamento
+e 1.963 registros de validação.
+
+Com o limiar padrão de 0,5, os modelos não identificaram
+nenhum registro fraudulento na validação.
+
+O Cenário A apresentou um falso positivo, enquanto os
+cenários B, C e D classificaram todos os registros como
+não fraudulentos.
+
+O Cenário D apresentou o maior valor de Average Precision
+(AP = 0,6099), apesar de Recall e F1 iguais a zero no
+limiar padrão.
+
+Esse resultado demonstra que a acurácia de aproximadamente
+77,8% não representa capacidade satisfatória de identificação
+de fraudes, pois corresponde praticamente à frequência da
+classe majoritária.
+
+Decisão: investigar as distribuições das probabilidades,
+os thresholds e o efeito do pré-processamento antes de
+avançar para outros algoritmos.
+
+O conjunto de teste permanece reservado.
+
+
