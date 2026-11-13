@@ -812,3 +812,30 @@ Esse resultado indica capacidade discriminativa em combinações de atributos n�
 - Não utilizar AP elevada isoladamente como comprovação de detecção de fraude.
 - Continuar investigando a origem dos rótulos `FLAG` e dos atributos do Vagifa.
   
+## 24 - Investigação dos perfis transacionais totalmente zerados no Vagifa
+
+A auditoria do Cenário C identificou um grupo de 427 registros com todas as 18 features numéricas iguais a zero, considerando treinamento e validação.
+
+Todos os 427 registros estão rotulados como fraudulentos (`FLAG = 1`).
+
+| Característica | Treinamento | Validação |
+|---|---:|---:|
+| Perfis totalmente zerados | 322 | 105 |
+| Fraudes entre os perfis zerados | 322 | 105 |
+| Perfis zerados com ERC-20 ausente | 157 | 59 |
+| Perfis zerados com ERC-20 presente | 165 | 46 |
+
+A investigação demonstrou que o perfil totalmente zerado não coincide integralmente com o padrão de ausência dos atributos ERC-20.
+
+Na validação, o grupo de perfis zerados representa aproximadamente 24,1% dos registros fraudulentos.
+
+Essa associação perfeita entre o perfil zerado e a classe fraudulenta, nos conjuntos analisados, pode representar um atalho de classificação. Entretanto, sua origem ainda não foi determinada.
+
+**Decisões metodológicas:**
+
+- Preservar os dados originais e o rótulo das contas.
+- Avaliar separadamente o desempenho do XGBoost nos registros com atividade transacional diferente de zero.
+- Investigar o efeito de excluir esses perfis do treinamento.
+- Não considerar a associação observada como comprovação automática de target leakage.
+- Manter o conjunto de teste reservado.
+- Continuar investigando a origem dos rótulos e os procedimentos de construção do dataset.
