@@ -732,3 +732,26 @@ As métricas elevadas não constituem evidência suficiente de generalização p
 - Continuar a auditoria da origem dos rótulos e das features.
 - Preservar o conjunto de teste para a avaliação final.
 
+## 21 - Investigação de perfis repetidos entre treinamento e validação
+
+Foi realizada uma auditoria para identificar perfis transacionais numericamente idênticos entre os conjuntos de treinamento e validação do Vagifa.
+
+Embora os endereços Ethereum duplicados tenham sido removidos durante a limpeza, observou-se que diferentes contas podem apresentar exatamente os mesmos valores de features.
+
+| Cenário | Duplicatas internas no treino | Registros de validação com perfil já visto |
+|---|---:|---:|
+| A - Completo | 330 | 115 (5,86%) |
+| C - Sem contratos | 330 | 115 (5,86%) |
+| D - Atividade e relacionamentos | 3.090 | 1.141 (58,13%) |
+
+A redução da quantidade de atributos aumentou significativamente a frequência de perfis idênticos, especialmente no Cenário D.
+
+Essa constatação não comprova vazamento de informação, mas indica que o particionamento aleatório pode permitir que modelos encontrem na validação combinações de atributos já observadas durante o treinamento.
+
+**Decisões metodológicas:**
+
+- Investigar conflitos de rótulos entre perfis idênticos.
+- Comparar posteriormente o desempenho em perfis já vistos e novos.
+- Considerar estratégias alternativas de particionamento por perfil.
+- Manter o conjunto de teste reservado.
+- Não interpretar os resultados elevados de AP como comprovação de generalização para novas contas ou períodos.
