@@ -891,3 +891,34 @@ Entretanto, a exclusão também alterou a prevalência da classe positiva no tre
 **Conclusão:** os perfis totalmente zerados não são indispensáveis para o desempenho observado nos registros não zerados, mas a generalização independente ainda não foi demonstrada.
 
 **Próxima etapa:** comparar validação cruzada convencional e validação cruzada agrupada por perfil numérico, mantendo o conjunto de teste reservado.
+
+## 27 - Validação cruzada agrupada por perfil
+
+Foi realizada uma comparação entre validação cruzada estratificada convencional e validação cruzada estratificada agrupada por perfil numérico.
+
+O experimento utilizou exclusivamente 5.567 registros não zerados do treinamento do Vagifa, considerando as 18 features do Cenário C.
+
+Foram utilizados cinco folds e a mesma configuração do XGBoost.
+
+| Métrica | Estratificada | Agrupada por perfil |
+|---|---:|---:|
+| AP média | 0,9176 | 0,9166 |
+| Desvio padrão da AP | 0,0176 | 0,0205 |
+| F1 médio | 0,8045 | 0,8099 |
+| Recall médio | 0,7452 | 0,7469 |
+| Precision média | 0,8757 | 0,8845 |
+| Grupos compartilhados entre folds | 10 | 0 |
+
+A estratégia agrupada impediu a presença de perfis numéricos idênticos em ambos os lados de cada divisão.
+
+A diferença de Average Precision média entre as estratégias foi pequena, aproximadamente 0,0010.
+
+**Conclusão:** neste experimento, a repetição exata de perfis não explicou isoladamente o desempenho elevado do XGBoost.
+
+O resultado não comprova generalização temporal, independência entre contas semelhantes ou ausência de viés na construção do dataset.
+
+**Próxima etapa:** investigar a proveniência dos rótulos do Vagifa, comparando os endereços e classificações com a base publicada por Farrugia, Ellul e Azzopardi (2020).
+
+Referência:
+
+FARRUGIA, S.; ELLUL, J.; AZZOPARDI, G. Detection of illicit accounts over the Ethereum blockchain. *Expert Systems with Applications*, v. 150, artigo 113318, 2020. DOI: 10.1016/j.eswa.2020.113318.
