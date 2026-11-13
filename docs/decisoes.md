@@ -755,3 +755,60 @@ Essa constatação não comprova vazamento de informação, mas indica que o par
 - Considerar estratégias alternativas de particionamento por perfil.
 - Manter o conjunto de teste reservado.
 - Não interpretar os resultados elevados de AP como comprovação de generalização para novas contas ou períodos.
+
+  ## 22 - Conflitos de rótulos em perfis transacionais do Vagifa
+
+Foi realizada uma auditoria de perfis numéricos idênticos entre os conjuntos de treinamento e validação.
+
+| Indicador | A - Completo | C - Sem contratos | D - Atividade e relacionamentos |
+|---|---:|---:|---:|
+| Perfis únicos no treinamento | 5.559 | 5.559 | 2.799 |
+| Perfis presentes nas duas classes no treinamento | 3 | 3 | 84 |
+| Registros de validação com perfis já vistos | 115 | 115 | 1.141 |
+| Registros com rótulos incompatíveis com os observados no treinamento para o mesmo perfil | 1 | 1 | 26 |
+| Registros de validação com perfis novos | 1.848 | 1.848 | 822 |
+
+A análise demonstrou que contas Ethereum distintas podem apresentar características numéricas idênticas, inclusive quando pertencem a classes diferentes.
+
+A redução das features aumenta significativamente a quantidade de perfis repetidos, principalmente no cenário que utiliza somente seis atributos.
+
+Essas ocorrências não comprovam vazamento de informação, mas evidenciam possíveis ambiguidades na representação dos registros e limitações do particionamento aleatório.
+
+**Decisões metodológicas:**
+
+- Investigar separadamente o desempenho em perfis novos e já vistos.
+- Considerar posteriormente uma estratégia de particionamento que mantenha perfis idênticos no mesmo conjunto.
+- Não remover automaticamente perfis com rótulos diferentes.
+- Preservar o conjunto de teste para avaliação final.
+- Investigar a origem e os critérios de atribuição dos rótulos antes de concluir que os modelos aprenderam comportamentos fraudulentos generalizáveis.
+
+## 23 - Desempenho do XGBoost em perfis novos e repetidos
+
+Foi realizada uma avaliação complementar dos modelos XGBoost, separando registros de validação cujas combinações de features já haviam aparecido no treinamento daqueles com perfis numéricos novos.
+
+### Cenário C — Sem valores enviados a contratos
+
+| Indicador | Perfis já vistos | Perfis novos |
+|---|---:|---:|
+| Registros | 115 | 1.848 |
+| Fraudes | 109 | 327 |
+| Prevalência de fraude | 94,78% | 17,69% |
+| Average Precision | 0,9986 | 0,9140 |
+| F1-score | 0,9636 | 0,8094 |
+
+A análise identificou uma forte concentração de registros fraudulentos no grupo de perfis já vistos.
+
+A AP próxima de 1,0 nesse grupo exige cautela, pois a prevalência de fraude já é de 94,78%.
+
+Nos perfis novos, o XGBoost manteve AP de aproximadamente 0,9140, superior à prevalência de fraude de 17,69%.
+
+Esse resultado indica capacidade discriminativa em combinações de atributos não observadas exatamente no treinamento. Contudo, não comprova generalização temporal nem independência em relação ao processo de construção e rotulação do dataset.
+
+**Decisões metodológicas:**
+
+- Investigar quais perfis concentram os registros fraudulentos repetidos.
+- Realizar validação agrupada por perfil, evitando compartilhamento de combinações numéricas idênticas entre treino e validação.
+- Preservar o conjunto de teste sem avaliação nesta etapa.
+- Não utilizar AP elevada isoladamente como comprovação de detecção de fraude.
+- Continuar investigando a origem dos rótulos `FLAG` e dos atributos do Vagifa.
+  
