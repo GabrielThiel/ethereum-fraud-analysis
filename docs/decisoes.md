@@ -839,3 +839,31 @@ Essa associação perfeita entre o perfil zerado e a classe fraudulenta, nos con
 - Não considerar a associação observada como comprovação automática de target leakage.
 - Manter o conjunto de teste reservado.
 - Continuar investigando a origem dos rótulos e os procedimentos de construção do dataset.
+
+  ## 25 - Sensibilidade do XGBoost aos perfis totalmente zerados
+
+Foi avaliada a influência dos perfis com todas as 18 features zeradas no desempenho do XGBoost, utilizando o Cenário C do dataset Vagifa.
+
+A comparação foi realizada entre a validação completa e a validação sem os 105 registros com perfil totalmente zerado, todos classificados como fraudulentos.
+
+| Métrica | Validação completa | Sem perfis zerados |
+|---|---:|---:|
+| Registros | 1.963 | 1.858 |
+| Fraudes | 436 | 331 |
+| Prevalência de fraude | 0,2221 | 0,1781 |
+| Average Precision | 0,9430 | 0,9038 |
+| Precision | 0,9110 | 0,8773 |
+| Recall | 0,7982 | 0,7341 |
+| F1-score | 0,8509 | 0,7993 |
+
+Os 105 registros removidos correspondiam a fraudes corretamente classificadas pelo modelo original.
+
+A exclusão desses registros reduziu a AP, o Recall e o F1. Entretanto, também alterou a prevalência da classe fraudulenta, de 22,21% para 17,81%.
+
+O modelo manteve AP de 0,9038 nos registros não zerados, indicando capacidade discriminativa na amostra avaliada.
+
+**Limitações:** o experimento utilizou um modelo originalmente treinado com os 322 perfis totalmente zerados. Portanto, não permite isolar completamente o efeito desses registros durante o aprendizado.
+
+**Próxima decisão experimental:** treinar outro XGBoost excluindo os perfis zerados do treinamento e comparar os dois modelos na mesma validação filtrada.
+
+O conjunto de teste permanece reservado.
