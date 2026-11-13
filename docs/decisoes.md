@@ -867,3 +867,27 @@ O modelo manteve AP de 0,9038 nos registros não zerados, indicando capacidade d
 **Próxima decisão experimental:** treinar outro XGBoost excluindo os perfis zerados do treinamento e comparar os dois modelos na mesma validação filtrada.
 
 O conjunto de teste permanece reservado.
+
+## 26 - Retreinamento do XGBoost sem perfis zerados
+
+Foi realizado um experimento de sensibilidade com o XGBoost no Cenário C do Vagifa.
+
+Foram excluídos 322 registros com todas as 18 features zeradas do conjunto de treinamento. Os dois modelos foram avaliados nos mesmos 1.858 registros de validação com pelo menos uma feature diferente de zero.
+
+| Métrica | Treinamento original | Treinamento sem perfis zerados |
+|---|---:|---:|
+| Registros de treinamento | 5.889 | 5.567 |
+| AP | 0,9038 | 0,9117 |
+| Precision | 0,8773 | 0,8885 |
+| Recall | 0,7341 | 0,7462 |
+| F1 | 0,7993 | 0,8112 |
+| Falsos positivos | 34 | 31 |
+| Falsos negativos | 88 | 84 |
+
+A remoção dos perfis zerados do treinamento não prejudicou o desempenho nos registros com atividade transacional. Foram observadas pequenas melhorias nas métricas avaliadas.
+
+Entretanto, a exclusão também alterou a prevalência da classe positiva no treinamento, impossibilitando atribuir toda a diferença exclusivamente à remoção dos perfis.
+
+**Conclusão:** os perfis totalmente zerados não são indispensáveis para o desempenho observado nos registros não zerados, mas a generalização independente ainda não foi demonstrada.
+
+**Próxima etapa:** comparar validação cruzada convencional e validação cruzada agrupada por perfil numérico, mantendo o conjunto de teste reservado.
