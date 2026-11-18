@@ -987,3 +987,31 @@ A taxa de falsos positivos foi aproximadamente 3,3 vezes maior entre as contas n
 Essa diferença indica que o desempenho do modelo varia entre os grupos de proveniência. Entretanto, não comprova uma relação causal entre a origem dos registros e o desempenho.
 
 **Decisão metodológica:** reconhecer a possibilidade de viés de seleção como uma limitação do dataset Vagifa e encerrar a etapa exploratória para avançar à avaliação final dos modelos.
+
+## 31 - Seleção das configurações e thresholds finais do Vagifa
+
+Foram selecionadas três configurações candidatas para a avaliação final do dataset Vagifa.
+
+Os thresholds foram definidos exclusivamente no conjunto de validação, utilizando a maximização do F1-Score como critério.
+
+| Modelo | Features | Threshold | Precision | Recall | F1 | AP |
+|---|---:|---:|---:|---:|---:|---:|
+| Regressão Logística | 6 | 0,2734 | 0,5556 | 0,5963 | 0,5752 | 0,6099 |
+| Regressão Logística balanceada | 6 | 0,5649 | 0,5597 | 0,5917 | 0,5753 | 0,6094 |
+| XGBoost | 18 | 0,3950 | 0,8806 | 0,8624 | 0,8714 | 0,9430 |
+
+O ajuste do threshold do XGBoost permitiu aumentar o Recall de 0,7982 para 0,8624 e o F1 de 0,8509 para 0,8714, acompanhado de uma redução na Precision.
+
+A Average Precision permaneceu inalterada, uma vez que a modificação do limiar não altera a ordenação das probabilidades produzidas pelo modelo.
+
+**Decisões metodológicas:**
+
+- Manter os modelos previamente treinados.
+- Preservar os thresholds selecionados na validação com sua precisão numérica original.
+- Utilizar o conjunto de teste exclusivamente para avaliação final.
+- Não utilizar acurácia como critério de comparação.
+- Não realizar novos ajustes com base nos resultados do teste.
+
+A comparação final representa configurações selecionadas individualmente para cada algoritmo, incluindo diferentes conjuntos de features.
+
+Os resultados não constituem, isoladamente, comprovação de generalização temporal ou entre datasets independentes.
