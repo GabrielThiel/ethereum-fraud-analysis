@@ -1203,3 +1203,38 @@ Os resultados representam o desempenho das configurações experimentais e não 
 ### Decisão
 
 Encerrar as medições computacionais e consolidar os resultados preditivos e computacionais dos datasets ETFD e Vagifa.
+
+## 36 - Padronização da comparação entre particionamentos do ETFD
+
+Foram reproduzidos os experimentos estratificados utilizando as mesmas configurações de pipelines e hiperparâmetros empregados na avaliação temporal.
+
+Foram calculadas Average Precision, PR-AUC trapezoidal, ROC-AUC, Precision, Recall, F1 e matrizes de confusão.
+
+| Modelo | Cenário | AP estratificada | AP temporal |
+|---|---|---:|---:|
+| Regressão Logística | A | 0,986404 | 0,046722 |
+| Regressão Logística | B | 0,892020 | 0,002901 |
+| Regressão Logística | C | 0,984417 | 0,048494 |
+| Regressão Logística | D | 0,806589 | 0,002837 |
+| XGBoost | A | 0,999917 | 0,312258 |
+| XGBoost | B | 0,999108 | 0,437440 |
+| XGBoost | C | 0,999273 | 0,289699 |
+| XGBoost | D | 0,973137 | 0,325636 |
+| Árvore de Decisão | A | 0,994915 | 0,007850 |
+| Árvore de Decisão | B | 0,979014 | 0,028421 |
+| Árvore de Decisão | C | 0,989795 | 0,006045 |
+| Árvore de Decisão | D | 0,905725 | 0,007055 |
+
+A padronização confirmou que as métricas obtidas na divisão aleatória estratificada não se mantiveram na avaliação cronológica.
+
+O XGBoost apresentou os maiores valores de AP nos quatro cenários temporais, destacando-se o Cenário B, com AP de 0,437440.
+
+A prevalência de fraude passou de aproximadamente 49,44% no teste estratificado para 0,184% no teste temporal.
+
+As diferenças de prevalência, tamanho dos conjuntos de treinamento e composição temporal limitam a comparação direta dos resultados.
+
+O teste estratificado possui caráter exploratório, pois já havia sido utilizado em experimentos anteriores.
+
+**Decisão:** encerrar os experimentos de modelagem do ETFD, preservando os resultados dos dois particionamentos e utilizando-os como avaliações complementares.
+
+Nenhum novo ajuste será realizado com base nos resultados temporais.
