@@ -1269,3 +1269,21 @@ Os riscos identificados não constituem, isoladamente, comprovação de vazament
 Com os dicionários do ETFD e do Vagifa, foram documentadas as 36 features utilizadas nos cenários completos preparados para os experimentos, sem considerar as variáveis derivadas da codificação cíclica.
 
 **Decisão:** preservar os dicionários como material de apoio à metodologia, à discussão dos resultados e à apresentação final do TCC.
+
+## 38 - Consolidação gráfica dos resultados do ETFD
+
+Após a conclusão dos experimentos preditivos e computacionais, foram geradas cinco figuras para consolidação dos resultados:
+
+1. Distribuição temporal das fraudes ao longo do blockNumber.
+2. Correlação de Spearman entre as features e Fraud.
+3. Comparação de Average Precision entre os particionamentos estratificado e temporal.
+4. Latência média, p95 e p99 de inferência.
+5. Throughput de inferência em lote.
+
+As figuras foram exportadas em formato PNG com resolução de 300 DPI.
+
+Também foi preparado um procedimento de exportação das tabelas experimentais em formato CSV, incluindo os resultados estratificados, temporais, computacionais e o dicionário das features.
+
+**Decisão:** utilizar os resultados consolidados como evidências para a elaboração dos capítulos de metodologia, resultados, discussão e conclusão do TCC.
+
+Não serão realizados novos ajustes dos modelos com base nos conjuntos de teste.
