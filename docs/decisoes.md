@@ -1154,3 +1154,52 @@ No Cenário B, o XGBoost identificou 45 das 46 fraudes, mas apresentou 1.330 fal
 Preservar os resultados estratificados e temporais como avaliações complementares, sem realizar ajustes com base no teste temporal.
 
 Utilizar Average Precision, Precision, Recall, F1 e matrizes de confusão para fundamentar a discussão final, distinguindo AP da PR-AUC trapezoidal.
+
+## 35 - Avaliação do desempenho computacional no ETFD
+
+Foram realizadas medições de latência e throughput das 12 configurações avaliadas no particionamento temporal do ETFD.
+
+### Ambiente experimental
+
+- Plataforma: Google Colab;
+- Sistema operacional: Linux;
+- Processador: Intel Xeon CPU @ 2.20 GHz;
+- Arquitetura: x86_64;
+- CPUs lógicas: 2;
+- Python: 3.13.18;
+- Scikit-learn: 1.6.1;
+- XGBoost: 3.4.1;
+- NumPy: 2.4.6;
+- Pandas: 2.2.3.
+
+### Procedimentos
+
+Foram realizadas 500 medições individuais de inferência e 30 repetições de processamento em lotes de 1.964 registros, precedidas por inferências de aquecimento.
+
+As medições incluíram as transformações internas dos pipelines, a geração das probabilidades e a aplicação do threshold de classificação.
+
+### Resultados do Cenário B
+
+| Modelo | AP | Latência média (ms) | p95 (ms) | p99 (ms) | Throughput (registros/s) |
+|---|---:|---:|---:|---:|---:|
+| Regressão Logística | 0,002901 | 9,7733 | 22,3712 | 32,9877 | 291873,9614 |
+| XGBoost | 0,437440 | 6,9829 | 7,8286 | 15,2225 | 172912,8712 |
+| Árvore de Decisão | 0,028421 | 5,6011 | 6,7644 | 8,5422 | 309789,3856 |
+
+O XGBoost apresentou maior capacidade discriminativa nesse cenário, embora tenha obtido menor throughput.
+
+A Árvore de Decisão apresentou desempenho computacional favorável, mas menor capacidade discriminativa na avaliação temporal.
+
+### Limitações
+
+As medições foram realizadas em ambiente computacional compartilhado, sujeito a variações de desempenho.
+
+O benchmark não inclui coleta de dados, comunicação com a blockchain ou extração original das features.
+
+Embora os benchmarks dos dois datasets utilizem procedimentos semelhantes, foram realizados em sessões distintas do Google Colab.
+
+Os resultados representam o desempenho das configurações experimentais e não comprovam a viabilidade de um sistema completo de detecção de fraudes em tempo real.
+
+### Decisão
+
+Encerrar as medições computacionais e consolidar os resultados preditivos e computacionais dos datasets ETFD e Vagifa.
