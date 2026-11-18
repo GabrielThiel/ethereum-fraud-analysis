@@ -922,3 +922,32 @@ O resultado não comprova generalização temporal, independência entre contas 
 Referência:
 
 FARRUGIA, S.; ELLUL, J.; AZZOPARDI, G. Detection of illicit accounts over the Ethereum blockchain. *Expert Systems with Applications*, v. 150, artigo 113318, 2020. DOI: 10.1016/j.eswa.2020.113318.
+
+## 28 - Investigação da proveniência dos rótulos do Vagifa
+
+Foi realizada uma comparação entre os endereços Ethereum do Vagifa e a base `Complete.csv` publicada por Farrugia, Ellul e Azzopardi (2020).
+
+A análise utilizou exclusivamente os conjuntos de treinamento e validação, totalizando 7.852 registros.
+
+| Classe | Encontrados na origem | Não encontrados |
+|---|---:|---:|
+| FLAG = 0 | 1.628 | 4.481 |
+| FLAG = 1 | 1.743 | 0 |
+
+Todos os 1.743 endereços fraudulentos analisados foram encontrados na base original, enquanto apenas 26,6% dos endereços não fraudulentos apresentaram correspondência.
+
+A base original contém 4.681 registros, sendo 2.179 rotulados como ilícitos. O arquivo Kaggle Vagifa contém 9.841 registros, também com 2.179 rotulados como fraudulentos.
+
+A documentação do projeto Vagif12 descreve a coleta de contas fraudulentas a partir do EtherScamDB e de uma lista adicional, com extração de atributos pela API do Etherscan.
+
+**Interpretação:** os resultados indicam forte sobreposição dos endereços fraudulentos entre as fontes, mas a composição das contas não fraudulentas apresenta diferenças substanciais.
+
+Foi identificado um endereço com rótulos conflitantes no arquivo original, ainda em investigação.
+
+**Decisão:** investigar o conflito de rotulação e documentar a possível influência dos diferentes procedimentos de seleção das classes. Não considerar os datasets automaticamente independentes nem interpretar resultados elevados como comprovação de generalização.
+
+### Referências
+
+FARRUGIA, S.; ELLUL, J.; AZZOPARDI, G. Detection of illicit accounts over the Ethereum blockchain. *Expert Systems with Applications*, v. 150, 113318, 2020. DOI: 10.1016/j.eswa.2020.113318.
+
+VAGIF12. *Ethereum Fraud Detection*. Disponível em: https://github.com/Vagif12/Ethereum-Fraud-Detection.
