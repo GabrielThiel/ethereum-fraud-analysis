@@ -951,3 +951,21 @@ Foi identificado um endereço com rótulos conflitantes no arquivo original, ain
 FARRUGIA, S.; ELLUL, J.; AZZOPARDI, G. Detection of illicit accounts over the Ethereum blockchain. *Expert Systems with Applications*, v. 150, 113318, 2020. DOI: 10.1016/j.eswa.2020.113318.
 
 VAGIF12. *Ethereum Fraud Detection*. Disponível em: https://github.com/Vagif12/Ethereum-Fraud-Detection.
+
+## 29 - Auditoria de conflitos de rotulação na base original
+
+A investigação da base publicada por Farrugia, Ellul e Azzopardi (2020) identificou um endereço Ethereum associado simultaneamente aos rótulos FLAG = 0 e FLAG = 1.
+
+O endereço conflitante não foi encontrado nos conjuntos de treinamento e validação do Vagifa.
+
+Dessa forma, não foi identificado impacto direto desse conflito nos experimentos realizados até o momento.
+
+**Decisões metodológicas:**
+
+- Preservar os dados e os rótulos originais.
+- Documentar o conflito como uma limitação da qualidade da fonte original.
+- Não alterar os conjuntos de treinamento e validação.
+- Manter o conjunto de teste reservado.
+- Investigar possíveis vieses associados às diferenças de composição entre a base de Farrugia e o Vagifa.
+
+A correspondência entre endereços e rótulos não garante que as fontes sejam independentes ou que seus processos de seleção estejam livres de vieses.
