@@ -1107,3 +1107,50 @@ Encerrar a avaliação experimental do Vagifa, preservando os resultados prediti
 O XGBoost apresentou o melhor desempenho preditivo entre os modelos avaliados, acompanhado de um custo computacional superior nas condições experimentais utilizadas.
 
 Os resultados serão consolidados com os experimentos do ETFD na discussão final do trabalho.
+
+## 34 - Avaliação temporal dos modelos no ETFD
+
+Foi realizada uma avaliação cronológica complementar utilizando o atributo `blockNumber` como referência de ordenação.
+
+O treinamento utilizou os primeiros 70% dos registros, enquanto o teste utilizou os 30% posteriores.
+
+### Distribuição das classes
+
+| Conjunto | Não fraude | Fraude | Total |
+|---|---:|---:|---:|
+| Treinamento | 17.204 | 41.224 | 58.428 |
+| Teste | 24.996 | 46 | 25.042 |
+
+A prevalência de fraude no conjunto de teste foi de aproximadamente 0,184%, demonstrando uma forte alteração temporal na distribuição das classes.
+
+Foram avaliadas Regressão Logística, XGBoost e Árvore de Decisão nos quatro cenários de features, mantendo os hiperparâmetros anteriores e o threshold de 0,5.
+
+### Resultados de Average Precision
+
+| Modelo | Cenário A | Cenário B | Cenário C | Cenário D |
+|---|---:|---:|---:|---:|
+| Regressão Logística | 0,046722 | 0,002901 | 0,048494 | 0,002837 |
+| XGBoost | 0,312258 | 0,437440 | 0,289699 | 0,325636 |
+| Árvore de Decisão | 0,007850 | 0,028421 | 0,006045 | 0,007055 |
+
+O XGBoost apresentou os maiores valores de AP nos quatro cenários temporais.
+
+Entretanto, foram observadas quedas expressivas nas métricas em relação à avaliação aleatória estratificada.
+
+No Cenário B, o XGBoost identificou 45 das 46 fraudes, mas apresentou 1.330 falsos positivos, resultando em Precision de aproximadamente 0,0327.
+
+### Conclusões
+
+- O equilíbrio global das classes não representa equilíbrio ao longo dos blocos.
+- O desempenho obtido no particionamento aleatório não se manteve na avaliação temporal.
+- Resultados de PR-AUC próximos de 1,0 não constituem evidência suficiente de generalização.
+- A remoção de atributos temporais e relacionados a endereços maliciosos altera significativamente o comportamento dos modelos.
+- A elevada diferença de prevalência limita a comparação direta entre as métricas dos dois particionamentos.
+- A presença de somente 46 registros fraudulentos limita a estabilidade das estimativas.
+- O particionamento temporal não elimina necessariamente o risco de vazamento presente na construção original das features agregadas.
+
+### Decisão metodológica
+
+Preservar os resultados estratificados e temporais como avaliações complementares, sem realizar ajustes com base no teste temporal.
+
+Utilizar Average Precision, Precision, Recall, F1 e matrizes de confusão para fundamentar a discussão final, distinguindo AP da PR-AUC trapezoidal.
