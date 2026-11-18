@@ -1015,3 +1015,40 @@ A Average Precision permaneceu inalterada, uma vez que a modificação do limiar
 A comparação final representa configurações selecionadas individualmente para cada algoritmo, incluindo diferentes conjuntos de features.
 
 Os resultados não constituem, isoladamente, comprovação de generalização temporal ou entre datasets independentes.
+
+## 32 - Avaliação final dos modelos no dataset Vagifa
+
+Após a definição das configurações e dos thresholds exclusivamente no conjunto de validação, foi realizada a avaliação final utilizando os 1.964 registros reservados para teste.
+
+O conjunto de teste contém 1.528 contas não fraudulentas e 436 contas fraudulentas, correspondendo a uma prevalência de fraude de aproximadamente 22,20%.
+
+| Modelo | Features | Precision | Recall | F1 | AP | PR-AUC |
+|---|---:|---:|---:|---:|---:|---:|
+| Regressão Logística | 6 | 0,5603 | 0,6284 | 0,5924 | 0,6185 | 0,6040 |
+| Regressão Logística balanceada | 6 | 0,5625 | 0,6193 | 0,5895 | 0,6257 | 0,6120 |
+| XGBoost | 18 | 0,8485 | 0,8349 | 0,8416 | 0,9393 | 0,9393 |
+
+O XGBoost apresentou o melhor desempenho preditivo entre as configurações avaliadas.
+
+Sua matriz de confusão apresentou:
+
+- Verdadeiros negativos: 1.463;
+- Falsos positivos: 65;
+- Falsos negativos: 72;
+- Verdadeiros positivos: 364.
+
+A Average Precision permaneceu próxima do resultado obtido na validação, passando de 0,9430 para 0,9393.
+
+### Limitações
+
+Os resultados correspondem a uma divisão aleatória estratificada do dataset Vagifa.
+
+Apesar das auditorias de identificadores, valores ausentes, perfis repetidos, perfis zerados e proveniência dos rótulos, não é possível garantir ausência de vieses ou generalização para períodos futuros.
+
+Os modelos também utilizam diferentes conjuntos de features, selecionados durante a validação.
+
+### Decisão
+
+Encerrar os ajustes dos modelos do Vagifa, preservando os resultados obtidos no conjunto de teste.
+
+Os modelos serão posteriormente submetidos à avaliação de latência e throughput, permitindo comparar o desempenho preditivo com o custo computacional de inferência.
