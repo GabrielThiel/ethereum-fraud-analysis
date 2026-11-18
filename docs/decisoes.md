@@ -1238,3 +1238,34 @@ O teste estratificado possui caráter exploratório, pois já havia sido utiliza
 **Decisão:** encerrar os experimentos de modelagem do ETFD, preservando os resultados dos dois particionamentos e utilizando-os como avaliações complementares.
 
 Nenhum novo ajuste será realizado com base nos resultados temporais.
+
+## 37 - Documentação das features do ETFD
+
+Foi elaborado um dicionário descritivo das 14 features originais do ETFD, contemplando:
+
+- Grupo funcional;
+- Descrição do atributo;
+- Tipo de dado;
+- Quantidade de valores distintos;
+- Correlação de Pearson com Fraud;
+- Correlação de Spearman com Fraud;
+- Possíveis riscos metodológicos.
+
+Os atributos com maior correlação absoluta de Spearman foram:
+
+| Feature | Spearman |
+|---|---:|
+| blockNumber | -0,8097 |
+| confirmations | 0,8075 |
+| total_tx_sent_malicious_unique | 0,7656 |
+| total_tx_sent_malicious | 0,7618 |
+
+Os resultados reforçam a necessidade de investigar a dependência temporal e a possível associação dos atributos relacionados a endereços maliciosos com o processo de rotulação.
+
+As descrições foram fundamentadas na análise exploratória e na investigação do código de construção do dataset.
+
+Os riscos identificados não constituem, isoladamente, comprovação de vazamento de informação.
+
+Com os dicionários do ETFD e do Vagifa, foram documentadas as 36 features utilizadas nos cenários completos preparados para os experimentos, sem considerar as variáveis derivadas da codificação cíclica.
+
+**Decisão:** preservar os dicionários como material de apoio à metodologia, à discussão dos resultados e à apresentação final do TCC.
