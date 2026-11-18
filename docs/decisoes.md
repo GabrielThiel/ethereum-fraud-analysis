@@ -969,3 +969,21 @@ Dessa forma, não foi identificado impacto direto desse conflito nos experimento
 - Investigar possíveis vieses associados às diferenças de composição entre a base de Farrugia e o Vagifa.
 
 A correspondência entre endereços e rótulos não garante que as fontes sejam independentes ou que seus processos de seleção estejam livres de vieses.
+
+## 30 - Investigação de possível viés de seleção no Vagifa
+
+Foi avaliado o comportamento do XGBoost no Cenário C, considerando a proveniência das contas não fraudulentas presentes no conjunto de validação.
+
+| Indicador | Encontrado em Farrugia | Não encontrado em Farrugia |
+|---|---:|---:|
+| Registros | 368 | 1.159 |
+| Probabilidade média | 0,0484 | 0,0697 |
+| Probabilidade mediana | 0,0123 | 0,0129 |
+| Falsos positivos | 3 | 31 |
+| Taxa de falsos positivos | 0,8152% | 2,6747% |
+
+A taxa de falsos positivos foi aproximadamente 3,3 vezes maior entre as contas não encontradas na base de Farrugia.
+
+Essa diferença indica que o desempenho do modelo varia entre os grupos de proveniência. Entretanto, não comprova uma relação causal entre a origem dos registros e o desempenho.
+
+**Decisão metodológica:** reconhecer a possibilidade de viés de seleção como uma limitação do dataset Vagifa e encerrar a etapa exploratória para avançar à avaliação final dos modelos.
