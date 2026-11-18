@@ -1052,3 +1052,58 @@ Os modelos também utilizam diferentes conjuntos de features, selecionados duran
 Encerrar os ajustes dos modelos do Vagifa, preservando os resultados obtidos no conjunto de teste.
 
 Os modelos serão posteriormente submetidos à avaliação de latência e throughput, permitindo comparar o desempenho preditivo com o custo computacional de inferência.
+
+## 33 - Avaliação do desempenho computacional no Vagifa
+
+Após a avaliação preditiva final, foram realizadas medições de latência e throughput das três configurações selecionadas para o dataset Vagifa.
+
+### Ambiente experimental
+
+- Plataforma: Google Colab.
+- Sistema operacional: Linux.
+- Arquitetura: x86_64.
+- Processador: Intel Xeon CPU @ 2.20 GHz.
+- CPUs lógicas: 2.
+- Python: 3.13.18.
+- Scikit-learn: 1.6.1.
+- XGBoost: 3.4.1.
+- NumPy: 2.4.6.
+- Pandas: 2.2.3.
+
+### Procedimento experimental
+
+Foram selecionados 500 registros para medições individuais de latência, utilizando semente aleatória fixa.
+
+Para a avaliação de throughput, foram realizadas 30 repetições de inferência em lotes contendo os 1.964 registros do conjunto de teste.
+
+Foram executadas inferências de aquecimento antes das medições.
+
+O tempo medido incluiu o pré-processamento interno dos modelos, a geração das probabilidades e a aplicação dos thresholds previamente selecionados.
+
+### Resultados
+
+| Modelo | Latência média (ms) | p50 (ms) | p95 (ms) | p99 (ms) | Throughput (registros/s) |
+|---|---:|---:|---:|---:|---:|
+| Regressão Logística | 5,4829 | 2,1771 | 19,4063 | 27,8510 | 517225,2058 |
+| Regressão Logística balanceada | 2,5156 | 2,2083 | 4,9052 | 8,2243 | 864293,4458 |
+| XGBoost | 8,3750 | 4,0374 | 18,0546 | 23,6608 | 252088,2724 |
+
+O XGBoost apresentou maior latência média e menor throughput, mas obteve desempenho preditivo superior, com AP de 0,9393 e F1 de 0,8416.
+
+### Limitações
+
+As medições foram realizadas em um ambiente computacional compartilhado, sujeito a variações de desempenho.
+
+As diferenças observadas entre as configurações da Regressão Logística não permitem concluir que o uso de pesos de classe proporciona ganho de velocidade na inferência.
+
+Os modelos utilizam diferentes quantidades de features, de modo que a comparação representa o custo das configurações experimentais completas.
+
+Os tempos não incluem coleta de transações, comunicação com a blockchain ou extração original de atributos.
+
+### Decisão
+
+Encerrar a avaliação experimental do Vagifa, preservando os resultados preditivos e computacionais.
+
+O XGBoost apresentou o melhor desempenho preditivo entre os modelos avaliados, acompanhado de um custo computacional superior nas condições experimentais utilizadas.
+
+Os resultados serão consolidados com os experimentos do ETFD na discussão final do trabalho.
